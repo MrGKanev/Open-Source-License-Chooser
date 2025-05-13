@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open Source License Chooser | Find the right license for your project</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description"
+    content="An elegant tool to help you choose the right open source license for your project by comparing features, requirements, and compatibility.">
+  <meta name="keywords"
+    content="open source, license, chooser, MIT, GPL, Apache, BSD, software license, comparison tool">
+  <meta name="author" content="Gabriel Kanev">
+
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:title" content="Open Source License Chooser">
+  <meta property="og:description"
+    content="Select the perfect open source license for your project with this comparison tool">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://github.com/MrGKanev/Open-Source-License-Chooser">
+  <meta property="og:site_name" content="Open Source License Chooser">
+
+  <!-- Twitter Card data -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Open Source License Chooser">
+  <meta name="twitter:description"
+    content="An elegant tool to help you choose the right open source license for your project">
+
+  <!-- Stylesheets and Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- Favicon -->
+  <!-- Emoji Favicon -->
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📝</text></svg>">
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+  <div class="container mx-auto px-4 py-8">
+    <header class="text-center mb-8">
+      <h1 class="text-3xl font-bold text-gray-800 mb-2">Open Source License Chooser</h1>
+      <p class="text-gray-600">Select the right license for your open source project</p>
+    </header>
+
+    <div class="filter-section mb-8 bg-white p-6 rounded-lg shadow-sm">
+      <h2 class="text-xl font-semibold mb-4 text-gray-700">What's important for your project?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <label class="flex items-center space-x-2 cursor-pointer">
+          <input type="checkbox" id="filter-simple" class="form-checkbox h-5 w-5 text-indigo-600 rounded">
+          <span class="text-gray-700">Simple and short</span>
+        </label>
+        <label class="flex items-center space-x-2 cursor-pointer">
+          <input type="checkbox" id="filter-patent" class="form-checkbox h-5 w-5 text-indigo-600 rounded">
+          <span class="text-gray-700">Patent protection</span>
+        </label>
+        <label class="flex items-center space-x-2 cursor-pointer">
+          <input type="checkbox" id="filter-permissive" class="form-checkbox h-5 w-5 text-indigo-600 rounded">
+          <span class="text-gray-700">Permissive (no copyleft)</span>
+        </label>
+        <label class="flex items-center space-x-2 cursor-pointer">
+          <input type="checkbox" id="filter-copyleft" class="form-checkbox h-5 w-5 text-indigo-600 rounded">
+          <span class="text-gray-700">Strong copyleft</span>
+        </label>
+        <label class="flex items-center space-x-2 cursor-pointer">
+          <input type="checkbox" id="filter-popular" class="form-checkbox h-5 w-5 text-indigo-600 rounded">
+          <span class="text-gray-700">Widely used</span>
+        </label>
+        <label class="flex items-center space-x-2 cursor-pointer">
+          <input type="checkbox" id="filter-compatibility" class="form-checkbox h-5 w-5 text-indigo-600 rounded">
+          <span class="text-gray-700">Good compatibility</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="flex justify-end mb-4">
+      <button id="compare-button"
+        class="px-4 py-2 bg-indigo-600 text-white font-medium rounded hover:bg-indigo-700 transition">
+        Compare Licenses
+      </button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-8" id="license-container">
+      <!-- License cards will be populated here -->
+    </div>
+
+    <div id="license-detail" class="bg-white rounded-lg shadow-sm p-6 hidden">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-semibold text-gray-800" id="detail-title">License Title</h2>
+        <div class="flex space-x-2">
+          <button id="copy-license"
+            class="px-4 py-2 bg-indigo-100 text-indigo-700 font-medium rounded hover:bg-indigo-200 transition">
+            Copy
+          </button>
+          <button id="download-license"
+            class="px-4 py-2 bg-indigo-600 text-white font-medium rounded hover:bg-indigo-700 transition">
+            Download
+          </button>
+        </div>
+      </div>
+      <div class="license-features grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <!-- License features will be displayed here -->
+      </div>
+      <div class="border rounded-lg p-4 bg-gray-50">
+        <h3 class="text-lg font-medium mb-2 text-gray-700">License Text</h3>
+        <pre id="license-text"
+          class="whitespace-pre-wrap text-sm text-gray-600 font-mono bg-gray-50 p-4 overflow-auto max-h-96"></pre>
+      </div>
+    </div>
+
+    <!-- License comparison section -->
+    <div id="comparison-container" class="bg-white rounded-lg shadow-sm p-6 hidden mb-8">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-semibold text-gray-800">License Comparison</h2>
+        <button id="close-comparison"
+          class="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded hover:bg-gray-200 transition">
+          Close
+        </button>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mb-6" id="comparison-selector">
+        <!-- Dropdown selectors for licenses to compare -->
+      </div>
+      <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border-collapse">
+          <thead>
+            <tr class="bg-gray-100 text-gray-700 text-left">
+              <th class="py-3 px-4 font-medium border-b">Feature</th>
+              <th id="compare-license-1" class="py-3 px-4 font-medium border-b">License 1</th>
+              <th id="compare-license-2" class="py-3 px-4 font-medium border-b">License 2</th>
+              <th id="compare-license-3" class="py-3 px-4 font-medium border-b">License 3</th>
+              <th id="compare-license-4" class="py-3 px-4 font-medium border-b">License 4</th>
+            </tr>
+          </thead>
+          <tbody id="comparison-table-body">
+            <!-- Comparison rows will be inserted here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <footer class="text-center py-6 text-gray-600 text-sm border-t mt-8 bg-gray-50">
+    <p class="mb-2">This tool is for informational purposes only and does not constitute legal advice.</p>
+    <p class="mb-3">Created by <a href="https://gkanev.com"
+        class="text-indigo-600 hover:text-indigo-800 font-medium">Gabriel Kanev</a></p>
+    <p>
+      Open sourced on
+      <a href="https://github.com/MrGKanev/Open-Source-License-Chooser"
+        class="text-indigo-600 hover:text-indigo-800 font-medium">
+        GitHub
+      </a> - Contributions welcome!
+    </p>
+  </footer>
+
+  <script src="assets/js/licenses.js"></script>
+  <script src="assets/js/comparison.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+.license-card.selected {
+  border-color: #4F46E5;
+  background-color: #EEF2FF;
+}
+
+.transition-height {
+  transition: max-height 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+.comparison-selected {
+  background-color: #f3f4f6;
+  border-left: 4px solid #4F46E5;
+}
+
+.feature-available {
+  color: #10B981;
+}
+
+.feature-unavailable {
+  color: #EF4444;
+}
+
+.license-checkbox {
+  display: none;
+}
+
+.license-selector {
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 2px solid transparent;
+}
+
+.license-selector:hover {
+  border-color: #E5E7EB;
+}
+
+.license-checkbox:checked+.license-selector {
+  border-color: #4F46E5;
+  background-color: #EEF2FF;
+}
